@@ -14,12 +14,16 @@ const App = () => {
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/habits`).then((response) => {
       setHabits(response.data);
+    }).catch((error) => {
+      console.error("There was an error fetching the habits!", error);
     });
   }, []);
 
   const addHabit = (habit) => {
     axios.post(`${process.env.REACT_APP_BACKEND_URL}/habits`, habit).then((response) => {
       setHabits([...habits, response.data]);
+    }).catch((error) => {
+      console.error("There was an error adding the habit!", error);
     });
   };
 
@@ -28,12 +32,16 @@ const App = () => {
       setHabits(
         habits.map((hab) => (hab._id === id ? response.data : hab))
       );
+    }).catch((error) => {
+      console.error("There was an error updating the habit!", error);
     });
   };
 
   const deleteHabit = (id) => {
     axios.delete(`${process.env.REACT_APP_BACKEND_URL}/habits/${id}`).then(() => {
       setHabits(habits.filter((hab) => hab._id !== id));
+    }).catch((error) => {
+      console.error("There was an error deleting the habit!", error);
     });
   };
 
