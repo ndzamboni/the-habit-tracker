@@ -9,11 +9,15 @@ import Toggle from './components/Toggle';
 
 const App = () => {
   const [habits, setHabits] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/habits`).then((response) => {
       setHabits(response.data);
+      // Extract unique categories from habits
+      const uniqueCategories = [...new Set(response.data.map(habit => habit.category))];
+      setCategories(uniqueCategories);
     }).catch((error) => {
       console.error("There was an error fetching the habits!", error);
     });
@@ -22,6 +26,9 @@ const App = () => {
   const addHabit = (habit) => {
     axios.post(`${process.env.REACT_APP_BACKEND_URL}/habits`, habit).then((response) => {
       setHabits([...habits, response.data]);
+      if (!categories.includes(response.data.category)) {
+        setCategories([...categories, response.data.category]);
+      }
     }).catch((error) => {
       console.error("There was an error adding the habit!", error);
     });
@@ -55,9 +62,9 @@ const App = () => {
         <GlobalStyles />
         <Toggle theme={theme} toggleTheme={themeToggler} />
         <div className="App">
-          <HabitForm addHabit={addHabit} />
-          <HabitList habits={habits} updateHabit={updateHabit} deleteHabit={deleteHabit} />
-          <ChartComponent habits={habits} />
+          <HabitForm addHabit={addHabit} categories={categories} />
+          <HabitList habits={habits} updateHabit={updateHabit} deleteHabit={deleteHabit} categories={categories} />
+          <ChartComponent habits={habits} categories={categories} />
         </div>
       </>
     </ThemeProvider>
