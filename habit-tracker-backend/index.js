@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 const habitSchema = new mongoose.Schema({
   name: String,
-  frequency: String,
+  category: String,
   records: [
     {
       date: Date,
@@ -29,6 +29,11 @@ const Habit = mongoose.model('Habit', habitSchema);
 
 app.get('/habits', async (req, res) => {
   const habits = await Habit.find();
+  res.json(habits);
+});
+
+app.get('/habits/category/:category', async (req, res) => {
+  const habits = await Habit.find({ category: req.params.category });
   res.json(habits);
 });
 

@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 
-const HabitForm = ({ addHabit }) => {
+const HabitForm = ({ addHabit, categories }) => {
   const [name, setName] = useState('');
-  const [frequency, setFrequency] = useState('daily');
+  const [category, setCategory] = useState('');
+  const [newCategory, setNewCategory] = useState('');
+  const [date, setDate] = useState('');
 
   const onSubmit = (e) => {
     e.preventDefault();
-    addHabit({ name, frequency, records: [] });
+    const selectedCategory = newCategory || category;
+    const records = [{ date: new Date(date), status: 'completed' }];
+    addHabit({ name, category: selectedCategory, records });
     setName('');
+    setCategory('');
+    setNewCategory('');
+    setDate('');
   };
 
   return (
@@ -19,14 +26,24 @@ const HabitForm = ({ addHabit }) => {
         placeholder="Habit name"
         required
       />
-      <select
-        value={frequency}
-        onChange={(e) => setFrequency(e.target.value)}
-      >
-        <option value="daily">Daily</option>
-        <option value="monthly">Monthly</option>
-        <option value="yearly">Yearly</option>
+      <select value={category} onChange={(e) => setCategory(e.target.value)}>
+        <option value="">Select Category</option>
+        {categories.map((cat, index) => (
+          <option key={index} value={cat}>{cat}</option>
+        ))}
       </select>
+      <input
+        type="text"
+        value={newCategory}
+        onChange={(e) => setNewCategory(e.target.value)}
+        placeholder="Or add new category"
+      />
+      <input
+        type="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+        required
+      />
       <button type="submit">Add Habit</button>
     </form>
   );
