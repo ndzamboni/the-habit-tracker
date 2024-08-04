@@ -13,7 +13,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('/api/users/login', { email, password });
+      const { data } = await axios.post('http://localhost:5000/api/users/login', { email, password });
       localStorage.setItem('token', data.token);
       dispatch(loadUser());
       navigate('/dashboard');
