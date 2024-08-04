@@ -4,7 +4,7 @@ import axios from 'axios';
 export const loadUser = createAsyncThunk('user/loadUser', async (_, thunkAPI) => {
   const token = localStorage.getItem('token');
   if (token) {
-    const { data } = await axios.get('/api/users/me', {
+    const { data } = await axios.get('http://localhost:5000/api/users/me', {
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchHabits } from '../features/habit/habitSlice';
 import Habit from './Habit';
+import AddHabit from './AddHabit';
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function Dashboard() {
   return (
     <div>
       <h1>Dashboard</h1>
+      <AddHabit />
       {habits.map((habit) => (
         <Habit key={habit._id} habit={habit} />
       ))}

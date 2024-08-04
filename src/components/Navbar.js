@@ -6,7 +6,7 @@ function Navbar() {
   const { user } = useSelector((state) => state.user);
 
   return (
-    <nav>
+    <nav className="nav">
       <Link to="/">Home</Link>
       {user ? (
         <>
