@@ -4,6 +4,15 @@ import { Chart, CategoryScale, LinearScale, PointElement, LineElement, Title, To
 
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
+const getRandomColor = () => {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
 const groupRecordsByDate = (habits) => {
   const dateMap = {};
 
@@ -11,16 +20,27 @@ const groupRecordsByDate = (habits) => {
     habit.records.forEach((record) => {
       const date = new Date(record.date).toLocaleDateString();
       if (!dateMap[date]) {
-        dateMap[date] = 0;
+        dateMap[date] = {};
       }
-      dateMap[date] += 1;
+      if (!dateMap[date][habit.category]) {
+        dateMap[date][habit.category] = 0;
+      }
+      dateMap[date][habit.category] += 1;
     });
   });
 
   const dates = Object.keys(dateMap).sort((a, b) => new Date(a) - new Date(b));
-  const counts = dates.map((date) => dateMap[date]);
+  const categories = Object.keys(habits.reduce((acc, habit) => ({ ...acc, [habit.category]: true }), {}));
+  
+  const datasets = categories.map((category, index) => ({
+    label: category,
+    data: dates.map((date) => dateMap[date][category] || 0),
+    fill: false,
+    backgroundColor: getRandomColor(),
+    borderColor: getRandomColor(),
+  }));
 
-  return { dates, counts };
+  return { dates, datasets };
 };
 
 const ChartComponent = ({ habits, categories }) => {
@@ -29,19 +49,11 @@ const ChartComponent = ({ habits, categories }) => {
     (habit) => !selectedCategory || habit.category === selectedCategory
   );
 
-  const { dates, counts } = groupRecordsByDate(filteredHabits);
+  const { dates, datasets } = groupRecordsByDate(filteredHabits);
 
   const data = {
     labels: dates,
-    datasets: [
-      {
-        label: 'Habit Activity',
-        data: counts,
-        fill: false,
-        backgroundColor: 'rgb(75, 192, 192)',
-        borderColor: 'rgba(75, 192, 192, 0.2)',
-      },
-    ],
+    datasets,
   };
 
   return (
