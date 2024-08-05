@@ -1,0 +1,31 @@
+.react-calendar-heatmap .color-empty {
+    fill: #ebedf0;
+  }
+  
+  .react-calendar-heatmap .color-scale-1 {
+    fill: #d1c4e9;
+  }
+  
+  .react-calendar-heatmap .color-scale-2 {
+    fill: #b39ddb;
+  }
+  
+  .react-calendar-heatmap .color-scale-3 {
+    fill: #9575cd;
+  }
+  
+  .react-calendar-heatmap .color-scale-4 {
+    fill: #7e57c2;
+  }
+  
+  .react-calendar-heatmap .react-calendar-heatmap-tooltip {
+    position: absolute;
+    z-index: 1;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #333;
+    color: #fff;
+    font-size: 12px;
+    pointer-events: none;
+  }
+  
