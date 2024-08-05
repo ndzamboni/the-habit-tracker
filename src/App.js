@@ -6,6 +6,8 @@ import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import Register from './components/Register';
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);

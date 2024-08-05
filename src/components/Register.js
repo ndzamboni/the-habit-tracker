@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Form, Button, Container } from 'react-bootstrap';
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -11,7 +12,6 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log({ username, email, password }); // Log request payload
       await axios.post('http://localhost:5000/api/users/register', { username, email, password });
       navigate('/login');
     } catch (error) {
@@ -20,12 +20,44 @@ function Register() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-      <button type="submit">Register</button>
-    </form>
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formUsername" className="mb-3">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Enter username"
+            required
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formEmail" className="mb-3">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter email"
+            required
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formPassword" className="mb-3">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter password"
+            required
+          />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">Register</Button>
+      </Form>
+    </Container>
   );
 }
 
