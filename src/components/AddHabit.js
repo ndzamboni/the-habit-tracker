@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchHabits } from '../features/habit/habitSlice';
+import { Form, Button, Container } from 'react-bootstrap';
 
 function AddHabit() {
   const [name, setName] = useState('');
@@ -37,45 +38,69 @@ function AddHabit() {
   const uniqueCategories = [...new Set(habits.map(habit => habit.category))];
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Habit Name"
-        required
-      />
-      <select value={category} onChange={(e) => setCategory(e.target.value)} required>
-        <option value="">Select Category</option>
-        {uniqueCategories.map(cat => (
-          <option key={cat} value={cat}>{cat}</option>
-        ))}
-        <option value="new">Add New Category</option>
-      </select>
-      {category === 'new' && (
-        <input
-          type="text"
-          value={newCategory}
-          onChange={(e) => setNewCategory(e.target.value)}
-          placeholder="New Category"
-          required
-        />
-      )}
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-        required
-      />
-      <input
-        type="number"
-        value={duration}
-        onChange={(e) => setDuration(e.target.value)}
-        placeholder="Duration (minutes)"
-        required
-      />
-      <button type="submit">Add Habit</button>
-    </form>
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formHabitName" className="mb-3">
+          <Form.Label>Habit Name</Form.Label>
+          <Form.Control
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter habit name"
+            required
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formCategory" className="mb-3">
+          <Form.Label>Category</Form.Label>
+          <Form.Control
+            as="select"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+          >
+            <option value="">Select Category</option>
+            {uniqueCategories.map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+            <option value="new">Add New Category</option>
+          </Form.Control>
+          {category === 'new' && (
+            <Form.Control
+              type="text"
+              value={newCategory}
+              onChange={(e) => setNewCategory(e.target.value)}
+              placeholder="New Category"
+              required
+              className="mt-3"
+            />
+          )}
+        </Form.Group>
+
+        <Form.Group controlId="formDate" className="mb-3">
+          <Form.Label>Date</Form.Label>
+          <Form.Control
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formDuration" className="mb-3">
+          <Form.Label>Duration (minutes)</Form.Label>
+          <Form.Control
+            type="number"
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
+            placeholder="Enter duration"
+            required
+          />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">Add Habit</Button>
+      </Form>
+    </Container>
   );
 }
 

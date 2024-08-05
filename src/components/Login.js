@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { loadUser } from '../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { Form, Button, Container } from 'react-bootstrap';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -23,11 +24,33 @@ function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-      <button type="submit">Login</button>
-    </form>
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formEmail" className="mb-3">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter email"
+            required
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formPassword" className="mb-3">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter password"
+            required
+          />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">Login</Button>
+      </Form>
+    </Container>
   );
 }
 

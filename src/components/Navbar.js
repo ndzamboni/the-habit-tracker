@@ -1,29 +1,44 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../features/user/userSlice';
+import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 
-function Navbar({ toggleDarkMode }) {
+function AppNavbar({ toggleDarkMode }) {
   const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
 
   return (
-    <nav className="nav">
-      <div>
-        <Link to="/">Home</Link>
-        {user ? (
-          <>
-            <Link to="/dashboard">Dashboard</Link>
-            <button>Logout</button>
-          </>
-        ) : (
-          <>
-            <Link to="/register">Register</Link>
-            <Link to="/login">Login</Link>
-          </>
-        )}
-      </div>
-      <button onClick={toggleDarkMode}>Toggle Dark Mode</button>
-    </nav>
+    <Navbar bg="light" expand="lg">
+      <Container>
+        <Navbar.Brand as={Link} to="/">Habit Tracker</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/">Home</Nav.Link>
+            {user ? (
+              <>
+                <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
+                <Button variant="outline-danger" onClick={handleLogout}>Logout</Button>
+              </>
+            ) : (
+              <>
+                <Nav.Link as={Link} to="/register">Register</Nav.Link>
+                <Nav.Link as={Link} to="/login">Login</Nav.Link>
+              </>
+            )}
+          </Nav>
+          <Button variant="outline-secondary" onClick={toggleDarkMode}>Toggle Dark Mode</Button>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 
-export default Navbar;
+export default AppNavbar;

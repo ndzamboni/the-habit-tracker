@@ -4,6 +4,7 @@ import { fetchHabits } from '../features/habit/habitSlice';
 import HabitCategoryChart from './HabitCategoryChart';
 import AddHabit from './AddHabit';
 import axios from 'axios';
+import { Container, Form, Button } from 'react-bootstrap';
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -34,15 +35,17 @@ function Dashboard() {
   const uniqueCategories = [...new Set(habits.map(habit => habit.category))];
 
   return (
-    <div>
+    <Container>
       <h1>Dashboard</h1>
       <AddHabit />
       <div>
-        <label htmlFor="category-filter">Filter by Category:</label>
-        <select
+        <Form.Label htmlFor="category-filter">Filter by Category:</Form.Label>
+        <Form.Control
+          as="select"
           id="category-filter"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
+          className="mb-3"
         >
           <option value="">All Categories</option>
           {uniqueCategories.map(category => (
@@ -50,18 +53,18 @@ function Dashboard() {
               {category}
             </option>
           ))}
-        </select>
+        </Form.Control>
       </div>
       {uniqueCategories.map(category => (
         (selectedCategory === '' || selectedCategory === category) && (
           <div key={category}>
             <h3>{category}</h3>
-            <button onClick={() => handleDeleteCategory(category)}>Delete Category</button>
+            <Button variant="danger" onClick={() => handleDeleteCategory(category)}>Delete Category</Button>
             <HabitCategoryChart category={category} habits={habits.filter(habit => habit.category === category)} />
           </div>
         )
       ))}
-    </div>
+    </Container>
   );
 }
 
