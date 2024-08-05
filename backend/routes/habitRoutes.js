@@ -1,13 +1,14 @@
 const express = require('express');
 const Habit = require('../models/Habit');
+const { authMiddleware } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
 // Create habit
-router.post('/', async (req, res) => {
-  const { userId, name, frequency, color } = req.body;
+router.post('/', authMiddleware, async (req, res) => {
+  const { name, frequency, color } = req.body;
   try {
-    const habit = await Habit.create({ userId, name, frequency, color });
+    const habit = await Habit.create({ userId: req.user._id, name, frequency, color });
     res.status(201).json(habit);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -15,7 +16,7 @@ router.post('/', async (req, res) => {
 });
 
 // Get user habits
-router.get('/:userId', async (req, res) => {
+router.get('/:userId', authMiddleware, async (req, res) => {
   const { userId } = req.params;
   try {
     const habits = await Habit.find({ userId });
@@ -26,7 +27,7 @@ router.get('/:userId', async (req, res) => {
 });
 
 // Log habit activity
-router.post('/log/:habitId', async (req, res) => {
+router.post('/log/:habitId', authMiddleware, async (req, res) => {
   const { habitId } = req.params;
   const { date, completed } = req.body;
   try {

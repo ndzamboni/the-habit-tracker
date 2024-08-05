@@ -1,6 +1,6 @@
 const express = require('express');
 const User = require('../models/User');
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { authMiddleware } = require('../middleware/authMiddleware');
 
@@ -8,14 +8,17 @@ const router = express.Router();
 
 // Register
 router.post('/register', async (req, res) => {
+  console.log(req.body); // Log request body
   const { username, email, password } = req.body;
   try {
     const user = await User.create({ username, email, password });
     res.status(201).json({ _id: user._id, username: user.username, email: user.email });
   } catch (error) {
+    console.error(error); // Log the error
     res.status(400).json({ message: error.message });
   }
 });
+
 
 // Login
 router.post('/login', async (req, res) => {

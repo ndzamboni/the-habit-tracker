@@ -13,7 +13,12 @@ function AddHabit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/habits', { userId: user._id, name, frequency, color });
+      const token = localStorage.getItem('token');
+      await axios.post('http://localhost:5000/api/habits', { name, frequency, color }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       dispatch(fetchHabits(user._id));
     } catch (error) {
       console.error(error);

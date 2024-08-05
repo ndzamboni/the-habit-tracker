@@ -11,6 +11,7 @@ function Navbar() {
       {user ? (
         <>
           <Link to="/dashboard">Dashboard</Link>
+          <Link to="/stats">Stats</Link>
           <button>Logout</button>
         </>
       ) : (
