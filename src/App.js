@@ -1,33 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadUser } from './features/user/userSlice';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
-import Register from './components/Register';
-import Login from './components/Login';
 import Dashboard from './components/Dashboard';
-import Stats from './components/Stats';
-import './App.css';
+import Login from './components/Login';
+import Register from './components/Register';
+import './index.css';
 
 function App() {
-  const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    dispatch(loadUser());
-  }, [dispatch]);
+    const savedMode = localStorage.getItem('darkMode');
+    if (savedMode) {
+      setDarkMode(savedMode === 'true');
+    }
+  }, []);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+    localStorage.setItem('darkMode', darkMode);
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
 
   return (
     <Router>
-      <div className={`app ${user ? (user.darkMode ? 'dark-mode' : 'light-mode') : 'light-mode'}`}>
-        <Navbar />
+      <div className="container">
+        <Navbar toggleDarkMode={toggleDarkMode} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/stats" element={<Stats />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
     </Router>
