@@ -5,25 +5,36 @@ import { fetchHabits } from '../features/habit/habitSlice';
 
 function AddHabit() {
   const [name, setName] = useState('');
-  const [frequency, setFrequency] = useState('daily');
-  const [color, setColor] = useState('#000000');
+  const [category, setCategory] = useState('');
+  const [newCategory, setNewCategory] = useState('');
+  const [date, setDate] = useState('');
+  const [duration, setDuration] = useState('');
   const { user } = useSelector((state) => state.user);
+  const { habits } = useSelector((state) => state.habits);
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const selectedCategory = category === 'new' ? newCategory : category;
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/habits', { name, frequency, color }, {
+      await axios.post('http://localhost:5000/api/habits', { name, category: selectedCategory, date, duration }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       dispatch(fetchHabits(user._id));
+      setName('');
+      setCategory('');
+      setNewCategory('');
+      setDate('');
+      setDuration('');
     } catch (error) {
       console.error(error);
     }
   };
+
+  const uniqueCategories = [...new Set(habits.map(habit => habit.category))];
 
   return (
     <form onSubmit={handleSubmit}>
@@ -34,15 +45,33 @@ function AddHabit() {
         placeholder="Habit Name"
         required
       />
-      <select value={frequency} onChange={(e) => setFrequency(e.target.value)}>
-        <option value="daily">Daily</option>
-        <option value="monthly">Monthly</option>
-        <option value="yearly">Yearly</option>
+      <select value={category} onChange={(e) => setCategory(e.target.value)} required>
+        <option value="">Select Category</option>
+        {uniqueCategories.map(cat => (
+          <option key={cat} value={cat}>{cat}</option>
+        ))}
+        <option value="new">Add New Category</option>
       </select>
+      {category === 'new' && (
+        <input
+          type="text"
+          value={newCategory}
+          onChange={(e) => setNewCategory(e.target.value)}
+          placeholder="New Category"
+          required
+        />
+      )}
       <input
-        type="color"
-        value={color}
-        onChange={(e) => setColor(e.target.value)}
+        type="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+        required
+      />
+      <input
+        type="number"
+        value={duration}
+        onChange={(e) => setDuration(e.target.value)}
+        placeholder="Duration (minutes)"
         required
       />
       <button type="submit">Add Habit</button>
