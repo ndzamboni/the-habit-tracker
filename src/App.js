@@ -8,7 +8,6 @@ import Register from './components/Register';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 function App() {
   const [darkMode, setDarkMode] = useState(false);
 
@@ -35,7 +34,7 @@ function App() {
   return (
     <Router>
       <div className="container">
-        <Navbar toggleDarkMode={toggleDarkMode} />
+        <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
