@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../features/user/userSlice';
 import { Navbar, Nav, Container, Button, Modal, Form } from 'react-bootstrap';
-import './Navbar.css';
+// import './Navbar.css';
 
 function AppNavbar({ toggleDarkMode }) {
   const { user } = useSelector((state) => state.user);
@@ -31,23 +31,23 @@ function AppNavbar({ toggleDarkMode }) {
     <>
       <Navbar className={user?.darkMode ? 'navbar-dark' : 'navbar-light'} expand="lg">
         <Container>
-          <Navbar.Brand as={Link} to="/">Habit Tracker</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/" className="navbar-brand-custom">Habit Tracker</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link as={Link} to="/">Home</Nav.Link>
+              <Nav.Link as={Link} to="/" className="nav-link-custom">Home</Nav.Link>
               {user ? (
                 <>
-                  <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
+                  <Nav.Link as={Link} to="/dashboard" className="nav-link-custom">Dashboard</Nav.Link>
                   <Button variant="outline-danger" onClick={handleLogout}>Logout</Button>
                 </>
               ) : (
                 <>
-                  <Nav.Link as={Link} to="/register">Register</Nav.Link>
-                  <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                  <Nav.Link as={Link} to="/register" className="nav-link-custom">Register</Nav.Link>
+                  <Nav.Link as={Link} to="/login" className="nav-link-custom">Login</Nav.Link>
                 </>
               )}
-              <Nav.Link onClick={handleShow}>Feature Requests</Nav.Link>
+              <Nav.Link onClick={handleShow} className="nav-link-custom">Feature Requests</Nav.Link>
             </Nav>
             <Button variant="outline-secondary" onClick={toggleDarkMode}>Toggle Dark Mode</Button>
           </Navbar.Collapse>

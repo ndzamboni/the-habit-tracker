@@ -16,15 +16,36 @@ body {
   background-color: #6c757d; /* Dark gray */
 }
 
-.nav a {
-  color: white;
-  text-decoration: none;
-  margin: 0 10px;
-  transition: color 0.3s ease;
+.navbar-brand-custom {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffdd57;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  transition: color 0.3s, text-shadow 0.3s;
 }
 
-.nav a:hover {
-  text-decoration: underline;
+.navbar-brand-custom:hover {
+  color: #ffc107;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.nav-link-custom,
+.navbar .nav-link-custom {
+  display: inline-block;
+  color: white;
+  background-color: #f0ad4e; /* Soft yellow */
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.nav-link-custom:hover,
+.navbar .nav-link-custom:hover {
+  background-color: #ec971f; /* Darker yellow */
+  color: white;
 }
 
 .nav button {
@@ -76,8 +97,20 @@ body.dark-mode .nav {
   background-color: #212529;
 }
 
-body.dark-mode .nav a {
-  color: #e0e0e0;
+body.dark-mode .navbar-brand-custom {
+  color: #ffdd57;
+}
+
+body.dark-mode .nav-link-custom,
+body.dark-mode .navbar .nav-link-custom {
+  background-color: #5bc0de;
+  color: white;
+}
+
+body.dark-mode .nav-link-custom:hover,
+body.dark-mode .navbar .nav-link-custom:hover {
+  background-color: #31b0d5; /* Darker blue */
+  color: white;
 }
 
 body.dark-mode .nav button {
@@ -165,4 +198,27 @@ button:active, .btn:active {
 
 .nav-link:hover, .nav-link:focus {
   color: #23527c;
+}
+
+/* Modal styles */
+.modal-content {
+  background-color: #ffffff;
+  color: #333333;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.feature-request-textarea {
+  background-color: #ffffff;
+  color: #333333;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode .modal-content {
+  background-color: #333333;
+  color: #e0e0e0;
+}
+
+body.dark-mode .feature-request-textarea {
+  background-color: #444444;
+  color: #e0e0e0;
 }
