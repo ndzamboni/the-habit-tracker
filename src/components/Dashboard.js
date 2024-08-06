@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchHabits } from '../features/habit/habitSlice';
-import HabitCategoryChart from './HabitCategoryChart';
 import AddHabit from './AddHabit';
-import BarChart from './BarChart';
-import PieChart from './PieChart';
-import RadarChart from './RadarChart';
+import { LineChart, BarChart, PieChart, RadarChart } from './Charts';
 import Heatmap from './Heatmap';
-import axios from 'axios';
 import { Container, Form, DropdownButton, Dropdown } from 'react-bootstrap';
+import axios from 'axios';
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -39,23 +36,61 @@ function Dashboard() {
 
   const uniqueCategories = [...new Set(habits.map(habit => habit.category))];
 
+  const chartData = (category) => {
+    const categoryHabits = habits.filter(habit => habit.category === category);
+    const labels = categoryHabits.map(habit => habit.name);
+    const data = categoryHabits.map(habit => habit.logs.reduce((acc, log) => acc + log.duration, 0));
+
+    return {
+      labels,
+      datasets: [
+        {
+          label: `${category} Duration`,
+          data,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+        },
+      ],
+    };
+  };
+
   const renderCategorySpecificChart = (category) => {
     switch (chartType) {
+      case 'line':
+        return <LineChart data={chartData(category)} />;
       case 'heatmap':
         return <Heatmap habits={habits} category={category} />;
       default:
-        return <HabitCategoryChart category={category} habits={habits.filter(habit => habit.category === category)} />;
+        return <LineChart data={chartData(category)} />;
     }
   };
 
   const renderComparisonChart = () => {
+    const labels = uniqueCategories;
+    const data = {
+      labels,
+      datasets: [
+        {
+          label: 'Duration by Category',
+          data: uniqueCategories.map(category =>
+            habits.filter(habit => habit.category === category).reduce((acc, habit) =>
+              acc + habit.logs.reduce((accLog, log) => accLog + log.duration, 0), 0)
+          ),
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+        },
+      ],
+    };
+
     switch (chartType) {
       case 'bar':
-        return <BarChart habits={habits} />;
+        return <BarChart data={data} />;
       case 'pie':
-        return <PieChart habits={habits} />;
+        return <PieChart data={data} />;
       case 'radar':
-        return <RadarChart habits={habits} />;
+        return <RadarChart data={data} />;
       default:
         return null;
     }

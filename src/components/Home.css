@@ -109,7 +109,14 @@ body {
   
   .demo-section {
     margin-bottom: 40px;
+
   }
+
+    .demo-section img {
+        max-width: 70%; /* Adjusts the width of the carousel images */
+        height: auto;
+        margin: 0 auto;
+    }
   
   .about-section {
     background-color: #3f51b5;
