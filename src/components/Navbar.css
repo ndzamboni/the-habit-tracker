@@ -1,0 +1,104 @@
+/* Light mode (default) */
+body {
+    background-color: #e0e0e0;
+    color: #333333;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+  }
+  
+  .nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+  
+  .nav a:hover {
+    text-decoration: underline;
+  }
+  
+  .nav button {
+    background-color: #ffdd57;
+    color: #333333;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .nav button:hover {
+    background-color: #ffc107;
+  }
+  
+  .modal-content {
+    background-color: #ffffff;
+    color: #333333;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .feature-request-textarea {
+    background-color: #ffffff;
+    color: #333333;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  /* Dark mode */
+  body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+  
+  body.dark-mode .modal-content {
+    background-color: #333333;
+    color: #e0e0e0;
+  }
+  
+  body.dark-mode .feature-request-textarea {
+    background-color: #444444;
+    color: #e0e0e0;
+  }
+  
+  body.dark-mode .nav {
+    background-color: #333333;
+  }
+  
+  body.dark-mode .nav a {
+    color: #e0e0e0;
+  }
+  
+  body.dark-mode .nav button {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  body.dark-mode button {
+    background-color: #ffdd57;
+    color: #333333;
+  }
+  
+  body.dark-mode button:hover {
+    background-color: #ffc107;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .container {
+      width: 90%;
+      padding: 10px;
+    }
+  
+    button {
+      width: 100%;
+      padding: 15px;
+    }
+  }
+  

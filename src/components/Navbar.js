@@ -2,26 +2,34 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../features/user/userSlice';
-import { Navbar, Nav, Container, Button } from 'react-bootstrap';
-import Sidebar from './Sidebar';
+import { Navbar, Nav, Container, Button, Modal, Form } from 'react-bootstrap';
+import './Navbar.css';
 
-function AppNavbar({ toggleDarkMode, darkMode }) {
+function AppNavbar({ toggleDarkMode }) {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [showSidebar, setShowSidebar] = useState(false);
+
+  const [show, setShow] = useState(false);
+  const [featureRequest, setFeatureRequest] = useState('');
 
   const handleLogout = () => {
     dispatch(logout());
     navigate('/login');
   };
 
-  const handleSidebarClose = () => setShowSidebar(false);
-  const handleSidebarShow = () => setShowSidebar(true);
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+  const handleFeatureRequestChange = (e) => setFeatureRequest(e.target.value);
+  const handleFeatureRequestSubmit = () => {
+    console.log('Feature Request Submitted:', featureRequest);
+    setFeatureRequest('');
+    handleClose();
+  };
 
   return (
     <>
-      <Navbar bg="light" expand="lg">
+      <Navbar className={user?.darkMode ? 'navbar-dark' : 'navbar-light'} expand="lg">
         <Container>
           <Navbar.Brand as={Link} to="/">Habit Tracker</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -39,17 +47,37 @@ function AppNavbar({ toggleDarkMode, darkMode }) {
                   <Nav.Link as={Link} to="/login">Login</Nav.Link>
                 </>
               )}
+              <Nav.Link onClick={handleShow}>Feature Requests</Nav.Link>
             </Nav>
             <Button variant="outline-secondary" onClick={toggleDarkMode}>Toggle Dark Mode</Button>
-            {user && (
-              <Button variant="primary" className="ms-2" onClick={handleSidebarShow}>
-                Customize
-              </Button>
-            )}
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Sidebar show={showSidebar} handleClose={handleSidebarClose} darkMode={darkMode} />
+
+      <Modal show={show} onHide={handleClose} className={user?.darkMode ? 'dark-mode' : ''}>
+        <Modal.Header closeButton>
+          <Modal.Title>Submit a Feature Request</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="featureRequest">
+              <Form.Label>Your Feature Request</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                value={featureRequest}
+                onChange={handleFeatureRequestChange}
+                placeholder="Describe the feature you would like to see"
+                className="feature-request-textarea"
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>Close</Button>
+          <Button variant="primary" onClick={handleFeatureRequestSubmit}>Submit</Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
