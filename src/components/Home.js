@@ -14,7 +14,7 @@ function Home() {
             <Button variant="primary" as={Link} to="/register">Get Started</Button>
           </Col>
           <Col md={6}>
-            <img src="/images/hero-image.png" alt="Hero" className="img-fluid" />
+            <img src="/images/demo1.PNG" alt="Hero" className="img-fluid" />
           </Col>
         </Row>
 
@@ -77,13 +77,13 @@ function Home() {
             <h2>App Screenshots</h2>
             <Carousel>
               <Carousel.Item>
-                <img src="/images/screenshot1.png" alt="Screenshot 1" className="d-block w-100" />
+                <img src="/images/demoOne.PNG" alt="Screenshot 1" className="d-block w-100" />
               </Carousel.Item>
               <Carousel.Item>
-                <img src="/images/screenshot2.png" alt="Screenshot 2" className="d-block w-100" />
+                <img src="/images/demo2.PNG" alt="Screenshot 2" className="d-block w-100" />
               </Carousel.Item>
               <Carousel.Item>
-                <img src="/images/screenshot3.png" alt="Screenshot 3" className="d-block w-100" />
+                <img src="/images/demo3.PNG" alt="Screenshot 3" className="d-block w-100" />
               </Carousel.Item>
             </Carousel>
           </Col>
