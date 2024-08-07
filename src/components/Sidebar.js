@@ -11,7 +11,7 @@ function Sidebar({ show, handleClose, darkMode }) {
   const handleDeleteCategory = async (category) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/habits/category/${category}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/habits/category/${category}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -21,11 +21,11 @@ function Sidebar({ show, handleClose, darkMode }) {
       console.error(error);
     }
   };
-
+  
   const handleDeleteHabit = async (habitId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/habits/${habitId}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/habits/${habitId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -35,6 +35,7 @@ function Sidebar({ show, handleClose, darkMode }) {
       console.error(error);
     }
   };
+  
 
   const uniqueCategories = [...new Set(habits.map(habit => habit.category))];
 
