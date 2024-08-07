@@ -19,7 +19,7 @@ function AddHabit() {
     try {
       const selectedCategory = category === 'new' ? newCategory : category;
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/habits', { name, category: selectedCategory, date, duration }, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/habits`, { name, category: selectedCategory, date, duration }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -34,6 +34,7 @@ function AddHabit() {
       console.error(error);
     }
   };
+  
 
   const uniqueCategories = [...new Set(habits.map(habit => habit.category))];
 
