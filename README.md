@@ -54,9 +54,9 @@ The Habit Tracker App is a comprehensive tool designed to help users track and m
 
 ## Screenshots
 
-![Screenshot 1](/src/images/demo1.PNG)
-![Screenshot 2](/src/images/demo2.PNG)
-![Screenshot 3](/src/images/demo3.PNG)
+![Screenshot 1](/public/images/demo1.PNG)
+![Screenshot 2](/public/images/demo2.PNG)
+![Screenshot 3](/public/images/demo3.PNG)
 
 ## Contributing
 
