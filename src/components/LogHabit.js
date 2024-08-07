@@ -13,7 +13,7 @@ function LogHabit({ habit }) {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`http://localhost:5000/api/habits/log/${habit._id}`, { date, completed: true, duration }, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/habits/log/${habit._id}`, { date, completed: true, duration }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -23,6 +23,7 @@ function LogHabit({ habit }) {
       console.error(error);
     }
   };
+
 
   return (
     <form onSubmit={handleSubmit}>

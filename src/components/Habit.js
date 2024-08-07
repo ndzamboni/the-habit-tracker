@@ -23,7 +23,7 @@ function Habit({ habit }) {
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/habits/${habit._id}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/habits/${habit._id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -33,6 +33,7 @@ function Habit({ habit }) {
       console.error(error);
     }
   };
+  
 
   const data = {
     labels: habit.logs.map(log => new Date(log.date).toLocaleDateString()),
