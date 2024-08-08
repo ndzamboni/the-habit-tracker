@@ -23,7 +23,7 @@ function Habit({ habit }) {
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`${process.env.REACT_APP_API_URL}/habits/${habit._id}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/habits/${habit._id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

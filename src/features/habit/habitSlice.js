@@ -4,7 +4,7 @@ import axios from 'axios';
 export const fetchHabits = createAsyncThunk('habits/fetchHabits', async (userId, thunkAPI) => {
   const token = localStorage.getItem('token');
   // Update the API URL to use the Vercel deployment URL
-const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/habits/${userId}`, {
+const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/habits/${userId}`, {
   headers: {
     Authorization: `Bearer ${token}`,
   },

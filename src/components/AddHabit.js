@@ -19,7 +19,7 @@ function AddHabit() {
     try {
       const selectedCategory = category === 'new' ? newCategory : category;
       const token = localStorage.getItem('token');
-      await axios.post(`${process.env.REACT_APP_API_URL}/habits`, { name, category: selectedCategory, date, duration }, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/habits`, { name, category: selectedCategory, date, duration }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
