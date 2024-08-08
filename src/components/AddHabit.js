@@ -16,6 +16,11 @@ function AddHabit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user || !user._id) {
+      console.error('User is not loaded or user ID is missing');
+      return;
+    }
+
     try {
       const selectedCategory = category === 'new' ? newCategory : category;
       const token = localStorage.getItem('token');
@@ -34,7 +39,6 @@ function AddHabit() {
       console.error(error);
     }
   };
-  
 
   const uniqueCategories = [...new Set(habits.map(habit => habit.category))];
 
