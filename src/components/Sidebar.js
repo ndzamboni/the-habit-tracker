@@ -6,6 +6,7 @@ import { fetchHabits } from '../features/habit/habitSlice';
 
 function Sidebar({ show, handleClose, darkMode }) {
   const { habits } = useSelector((state) => state.habits);
+  const { user } = useSelector((state) => state.user); // Ensure user is available
   const dispatch = useDispatch();
 
   const handleDeleteCategory = async (category) => {
@@ -16,12 +17,12 @@ function Sidebar({ show, handleClose, darkMode }) {
           Authorization: `Bearer ${token}`,
         },
       });
-      dispatch(fetchHabits());
+      dispatch(fetchHabits(user._id)); // Pass the correct user ID here
     } catch (error) {
       console.error(error);
     }
   };
-  
+
   const handleDeleteHabit = async (habitId) => {
     try {
       const token = localStorage.getItem('token');
@@ -30,12 +31,11 @@ function Sidebar({ show, handleClose, darkMode }) {
           Authorization: `Bearer ${token}`,
         },
       });
-      dispatch(fetchHabits());
+      dispatch(fetchHabits(user._id)); // Pass the correct user ID here
     } catch (error) {
       console.error(error);
     }
   };
-  
 
   const uniqueCategories = [...new Set(habits.map(habit => habit.category))];
 

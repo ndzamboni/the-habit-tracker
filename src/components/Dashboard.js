@@ -4,7 +4,9 @@ import { fetchHabits } from '../features/habit/habitSlice';
 import AddHabit from './AddHabit';
 import { LineChart, BarChart, PieChart, RadarChart } from './Charts';
 import Heatmap from './Heatmap';
-import { Container, Form, DropdownButton, Dropdown } from 'react-bootstrap';
+import Sidebar from './Sidebar';
+import StreakDisplay from './StreakDisplay';
+import { Container, Form, DropdownButton, Dropdown, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 function Dashboard() {
@@ -13,6 +15,7 @@ function Dashboard() {
   const { habits } = useSelector((state) => state.habits);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [chartType, setChartType] = useState('line');
+  const [showSidebar, setShowSidebar] = useState(false); // Sidebar state
 
   useEffect(() => {
     if (user) {
@@ -33,7 +36,6 @@ function Dashboard() {
       console.error(error);
     }
   };
-  
 
   const uniqueCategories = [...new Set(habits.map(habit => habit.category))];
 
@@ -100,7 +102,12 @@ function Dashboard() {
   return (
     <Container>
       <h1>Dashboard</h1>
+      <Button variant="primary" onClick={() => setShowSidebar(true)}>
+        Open Sidebar
+      </Button>
+      <Sidebar show={showSidebar} handleClose={() => setShowSidebar(false)} darkMode={user?.darkMode} />
       <AddHabit />
+      <StreakDisplay habits={habits} /> {/* Add StreakDisplay here */}
       <div>
         <Form.Label htmlFor="category-filter">Filter by Category:</Form.Label>
         <Form.Control
