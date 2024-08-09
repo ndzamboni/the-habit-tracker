@@ -1,5 +1,9 @@
 .streak-display {
     margin-top: 20px;
+    padding: 20px;
+    background-color: var(--streak-bg, #e2e6ea); /* Light gray for light mode */
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
   }
   
   .streak-container {
@@ -9,22 +13,44 @@
   }
   
   .streak-card {
-    background-color: #f8f9fa;
+    background-color: var(--card-bg, #f8f9fa); /* Light gray */
     border: 1px solid #ddd;
     padding: 15px;
     border-radius: 8px;
     text-align: center;
     width: 150px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   }
   
   .streak-card h4 {
     margin-bottom: 10px;
     font-size: 16px;
+    color: var(--card-text, #333333); /* Default text color */
+    transition: color 0.3s;
   }
   
   .streak-number {
     font-size: 24px;
     font-weight: bold;
-    color: #4CAF50;
+    color: var(--highlight-color, #4CAF50); /* Highlight color */
+    transition: color 0.3s;
+  }
+  
+  /* Dark mode */
+  body.dark-mode .streak-display {
+    background-color: var(--streak-bg-dark, #2c2f33); /* Dark gray for dark mode */
+  }
+  
+  body.dark-mode .streak-card {
+    background-color: var(--card-bg-dark, #333333); /* Darker gray */
+    border-color: #444444;
+  }
+  
+  body.dark-mode .streak-card h4 {
+    color: var(--card-text-dark, #e0e0e0); /* Lighter text color */
+  }
+  
+  body.dark-mode .streak-number {
+    color: var(--highlight-color-dark, #ffdd57); /* Yellow highlight color */
   }
   
