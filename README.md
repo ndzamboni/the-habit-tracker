@@ -4,6 +4,8 @@
 
 The Habit Tracker App is a comprehensive tool designed to help users track and manage their habits effectively. It offers a clean, responsive UI with both light and dark modes, and allows users to visualize their habits through various types of charts. The app also supports feature requests from users, ensuring continuous improvement based on user feedback.
 
+![Habit Streak](/public/images/demo6.PNG)
+
 ## Features
 
 - **User Authentication**: Register, login, and manage user profiles.
