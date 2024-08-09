@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../features/user/userSlice';
 import { Navbar, Nav, Container, Button, Modal, Form } from 'react-bootstrap';
-// import './Navbar.css';
 
 function AppNavbar({ toggleDarkMode }) {
   const { user } = useSelector((state) => state.user);
@@ -39,6 +38,7 @@ function AppNavbar({ toggleDarkMode }) {
               {user ? (
                 <>
                   <Nav.Link as={Link} to="/dashboard" className="nav-link-custom">Dashboard</Nav.Link>
+                  <Nav.Link as={Link} to="/user-profile" className="nav-link-custom">Profile</Nav.Link> {/* Updated Profile link */}
                   <Button variant="outline-danger" onClick={handleLogout}>Logout</Button>
                 </>
               ) : (
