@@ -20,7 +20,7 @@ The Habit Tracker App is a comprehensive tool designed to help users track and m
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/habit-tracker.git
+   git clone https://github.com/ndzamboni/habit-tracker.git
    cd habit-tracker
 
 2. **Install dependencies**:
