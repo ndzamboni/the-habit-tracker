@@ -12,12 +12,12 @@ connectDB();
 
 // Init Middleware
 app.use(cors());
-
 app.use(express.json({ extended: false }));
 
 // Define Routes
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/habits', require('./routes/habitRoutes'));
+app.use('/api/profile', require('./routes/profileRoutes')); // Add profile routes
 
 app.get('/', (req, res) => res.send('API Running'));
 
