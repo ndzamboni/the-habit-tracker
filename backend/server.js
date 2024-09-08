@@ -6,21 +6,17 @@ const cors = require('cors');
 dotenv.config();
 
 const app = express();
-
-// Connect Database
 connectDB();
 
-// Init Middleware
 app.use(cors());
 app.use(express.json({ extended: false }));
 
-// Define Routes
+// Register Routes
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/habits', require('./routes/habitRoutes'));
-app.use('/api/profile', require('./routes/profileRoutes')); // Add profile routes
+app.use('/api/profile', require('./routes/profileRoutes'));  // Ensure this line is present
 
 app.get('/', (req, res) => res.send('API Running'));
 
 const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
